@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.geneshop.authority.persistence.AuthorityRolePersistence">
+
+    <!--<sql id="column">
+        id,role_name,create_time,update_time
+    </sql>
+    &lt;!&ndash;插入操作&ndash;&gt;
+    <insert id="addRole" parameterType="com.geneshop.authority.domain.RoleManager">
+        INSERT INTO geneshop_authority_role_manage(id,role_name,create_time)
+        VALUES(#{roleManager.id},#{roleManager.roleName},#{roleManager.createTime})
+    </insert>
+    &lt;!&ndash;更新操作&ndash;&gt;
+    <update id="updateRole" parameterType="com.geneshop.authority.domain.RoleManager">
+        UPDATE geneshop_authority_role_manage
+          SET role_name=#{roleManager.roleName},updateTime=#{roleManager.update_time}
+          WHERE id=#{roleManager.id}
+    </update>
+
+    <select id="selectRole" parameterType="com.geneshop.authority.domain.RoleManager">
+        SELECT
+        <include refid="column"/>
+        FROM geneshop_authority_role_manage
+        WHERE
+        <if test="roleName！=null and roleName!=''">
+            role_name=#{roleName}
+        </if>
+        <if test="createTime！=null and createTime!=''">
+            AND create_time=#{createTime}
+        </if>
+        <if test="updateTime！=null and updateTime!=''">
+            AND update_time=#{updateTime}
+        </if>
+    </select>
+    <delete id="deleteRole" parameterType="java.lang.String">
+        DELETE FROM geneshop_authority_role_manage
+        WHERE
+        <if test="id！=null and id!=''">
+            id=#{id}
+        </if>
+    </delete>-->
+    <!--批量删除-->
+    <delete id="deleteBatch" parameterType="java.util.List">
+        DELETE  from geneshop_authority_role_manage WHERE id in
+        <foreach collection="ids" item="id" index="index" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

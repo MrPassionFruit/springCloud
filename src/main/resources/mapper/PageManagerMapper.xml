@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.geneshop.authority.persistence.AuthorityPagePersistence">
+    <!--插入操作-->
+    <!-- <insert id="insert" parameterType="com.geneshop.authority.domain.PageManager">
+         INSERT INTO geneshop_authority_page_manage(id,page_level,page_type,parent_page_id,page_name,create_time)
+         VALUES(#{pageManager.id},#{pageManager.pageLevel},#{pageManager.pageType},#{pageManager.parentPageId},
+         #{pageManager.pageName},#{pageManager.createTime})
+     </insert>
+
+     &lt;!&ndash;更新操作&ndash;&gt;
+     <update id="update" parameterType="com.geneshop.authority.domain.PageManager">
+         UPDATE geneshop_authority_page_manage
+         <set>
+             <if test="pageLevel!=null and pageLevel!=''">
+                 page_level=#{pageLevel}
+             </if>
+             <if test="pageType!=null and pageType!=''">
+                 page_type=#{pageType}
+             </if>
+             <if test="parentPageId!=null and parentPageId!=''">
+                 parent_page_id=#{parentPageId}
+             </if>
+             <if test="pageName!=null and pageName!=''">
+                 page_name=#{pageName}
+             </if>
+             <if test="updateTime!=null and updateTime!=''">
+                 update_time=#{updateTime}
+             </if>
+         </set>
+         WHERE id=#{id}
+     </update>
+     &lt;!&ndash;删除&ndash;&gt;
+     <delete id="delete" parameterType="java.lang.Integer">
+         DELETE FROM geneshop_authority_page_manage
+         WHERE
+         <if test="id！=null and id!=''">
+             id=#{id}
+         </if>
+     </delete>-->
+    <!--批量添加-->
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO geneshop_authority_page_manage(id,page_level,page_type,parent_page_id,page_name,create_time)
+        VALUES
+        <foreach collection="pageManagerList" item="pageManager" separator=",">
+            (#{pageManager.id},#{pageManager.pageLevel},#{pageManager.pageType},#{pageManager.parentPageId},
+            #{pageManager.pageName},#{pageManager.createTime})
+        </foreach>
+    </insert>
+    <!--批量删除-->
+    <delete id="deleteBatch" parameterType="java.util.List">
+        DELETE g1,g2 from  geneshop_authority_page_manage as g1 LEFT JOIN
+          geneshop_authority_role_page_relative as g2  ON g1.id=g2.page_id WHERE g1.id in
+          <foreach collection="ids" item="id" index="index" open="(" close=")" separator=",">
+              #{id}
+          </foreach>
+    </delete>
+</mapper>

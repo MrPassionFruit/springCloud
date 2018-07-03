@@ -1,0 +1,35 @@
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+zuul:
+  routes:
+    api-a:
+      path: /user-api/**
+      serviceId: user-service
+
+server:
+  port: 8763
+
+spring:
+  application:
+    name: ms-mod-authority
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/geneshop?useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: wxf
+    password: 123456.0
+    type: com.alibaba.druid.pool.DruidDataSource
+mybatis:
+  type-aliases-package: com.geneshop.authority.domain.*
+  mapper-locations: classpath*:mapper/*.xml
+
+logging:
+  config: classpath:log4j2.properties
+#sql日志
+logging.level.com.geneshop.authority.persistence: debug
+mapper:
+  mappers: com.geneshop.authority.persistence.AuthorityPagePersistence

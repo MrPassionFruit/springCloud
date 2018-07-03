@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.geneshop.authority.persistence.RolePageRelativeManagePersistence">
+    <!--插入操作-->
+    <!--<insert id="insert" parameterType="com.geneshop.authority.domain.RolePageRelativeManage">
+        INSERT INTO geneshop_authority_role_page_relative(id,role_id,page_id,current_authority,create_time)
+        VALUES(#{rolePageRelativeManage.id},#{rolePageRelativeManage.roleId},#{rolePageRelativeManage.pageId},
+        #{rolePageRelativeManage.currentAuthority},#{rolePageRelativeManage.createTime})
+    </insert>
+
+    &lt;!&ndash;更新操作&ndash;&gt;
+    <update id="update" parameterType="com.geneshop.authority.domain.RolePageRelativeManage">
+        UPDATE geneshop_authority_role_page_relative
+        <set>
+            <if test="roleId!=null and roleId!=''">
+                role_id=#{roleId}
+            </if>
+            <if test="pageId!=null and pageId!=''">
+                page_id=#{pageId}
+            </if>
+            <if test="currentAuthority!=null and currentAuthority!=''">
+                current_authority=#{currentAuthority}
+            </if>
+            <if test="updateTime!=null and updateTime!=''">
+                update_time=#{updateTime}
+            </if>
+        </set>
+        WHERE id=#{id}
+    </update>
+    &lt;!&ndash;删除&ndash;&gt;
+    <delete id="delete" parameterType="java.lang.Integer">
+        DELETE FROM geneshop_authority_role_page_relative
+        WHERE
+        <if test="id！=null and id!=''">
+            id=#{id}
+        </if>
+    </delete>-->
+    <!--批量删除-->
+    <delete id="deleteBatch" parameterType="java.util.List">
+        DELETE  from geneshop_authority_role_page_relative WHERE id in
+        <foreach collection="ids" item="id" index="index" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
